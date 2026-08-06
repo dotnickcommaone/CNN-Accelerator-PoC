@@ -1,0 +1,50 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+.env
+
+# Reproducible outputs, checkpoints, logs and measurements
+artifacts/
+results/
+build/
+dist/
+*.log
+*.jou
+
+# Generated/private datasets and split manifests
+dataset/aruco/images/
+dataset/aruco/labels/
+dataset/aruco/train.txt
+dataset/aruco/val.txt
+dataset/aruco/test.txt
+
+# Generated model/hardware artifacts
+*.pt
+*.pth
+*.onnx
+*.npz
+*.bit
+*.hwh
+*.xpr
+.Xil/
+*.runs/
+*.cache/
+*.gen/
+*.hw/
+*.ip_user_files/
+
+# Generated media and archives
+*.avi
+*.mp4
+*.zip
+
+# IDE/OS metadata
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

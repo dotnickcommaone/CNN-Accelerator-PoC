@@ -1,0 +1,121 @@
+# ArUco marker detector — MobileNetV2-0.35
+
+This directory contains the replacement model for the original cat/dog
+classifier. The CNN detects the marker region; OpenCV ArUco is intentionally
+kept as the post-processing stage that decodes the marker ID and estimates its
+pose.
+
+## Model contract
+
+- Input: RGB image, `160x160`, normalized to `[0, 1]`
+- Backbone: MobileNetV2 with `width_mult=0.35`
+- Output: `5x5x5` tensor
+  - channel 0: marker objectness logit
+  - channels 1–2: center offset inside a grid cell
+  - channels 3–4: normalized box width and height
+- Classes: one (`aruco_marker`)
+- Label format: YOLO text, one row per marker:
+  `class_id center_x center_y width height`, normalized to `[0, 1]`
+
+The first implementation targets INT8. INT4 will only be introduced after an
+INT8 baseline has been measured, because it normally requires
+quantization-aware training.
+
+## Quick start
+
+Generate a small synthetic dataset:
+
+```powershell
+python model/scripts/generate_synthetic_aruco.py --output dataset/aruco --count 1000
+```
+
+Train:
+
+```powershell
+python model/train.py --config model/configs/mobilenetv2_035.yaml
+```
+
+Evaluate:
+
+```powershell
+python model/evaluate.py --config model/configs/mobilenetv2_035.yaml `
+  --checkpoint artifacts/aruco_mbv2_035/best.pt
+```
+
+Export ONNX and symmetric INT8 weights:
+
+```powershell
+python model/export_int8.py --config model/configs/mobilenetv2_035.yaml `
+  --checkpoint artifacts/aruco_mbv2_035/best.pt `
+  --calibration-samples 100
+```
+
+The exporter uses the validation manifest for activation calibration and emits
+per-output-channel INT8 weight scales, INT32 biases, and per-layer activation
+ranges. This is an HLS handoff artifact, not yet a bit-accurate quantized model.
+Conv/BatchNorm pairs are folded before ONNX and INT8 export; the exporter aborts
+if folding changes the FP32 output by more than `1e-4`.
+
+## Current baseline limits
+
+- The supplied configuration trains from scratch because torchvision does not
+  publish pretrained MobileNetV2-0.35 weights.
+- The `5x5` detection grid is intended for a small number of room markers, not
+  dense general-purpose object detection.
+- INT8 activation scales are calibrated, but an integer-only reference forward
+  pass and FP32-vs-INT8 accuracy comparison remain required before HLS.
+- Synthetic results are sanity checks only and must not be reported as thesis
+  accuracy.
+
+The synthetic dataset is useful for smoke tests, but thesis measurements must
+use a held-out real-camera test set containing different distances, viewing
+angles, lighting levels, blur, occlusion, and non-marker backgrounds.
+
+Audit dataset and export raw statistics:
+
+```powershell
+python model/scripts/audit_aruco_dataset.py --root dataset/aruco `
+  --output artifacts/dataset_audit --hash-images
+```
+
+For real data stored as `images/<session>/...`, build leakage-safe manifests:
+
+```powershell
+python model/scripts/build_session_splits.py --root dataset/aruco --force
+```
+
+## Collect real-camera data
+
+Capture frames and create YOLO labels automatically from markers that OpenCV
+can decode:
+
+```powershell
+python model/scripts/collect_aruco_dataset.py --source 0 `
+  --output dataset/aruco --session room_a_daylight `
+  --every 10 --max-saved 500 --include-negatives --display
+```
+
+`--source` may be a USB camera index, video path, or ESP32-CAM stream URL.
+Each recording creates its own session manifest. Build `train.txt`, `val.txt`,
+and `test.txt` from whole sessions; do not randomly distribute adjacent frames
+from one video among multiple splits.
+
+Auto-labeling only captures markers already detectable by classical OpenCV.
+Manually review the labels and add difficult examples—blur, partial occlusion,
+small markers and steep viewing angles—otherwise the CNN will not learn the
+conditions in which it is intended to improve robustness.
+
+## Image inference
+
+After training, run the complete model-stage pipeline:
+
+```powershell
+python model/infer_aruco.py `
+  --config model/configs/mobilenetv2_035.yaml `
+  --checkpoint artifacts/aruco_mbv2_035/best.pt `
+  --image path/to/frame.jpg `
+  --output artifacts/aruco_result.jpg
+```
+
+The command detects marker ROIs with the CNN, decodes IDs with OpenCV ArUco,
+prints machine-readable JSON, and optionally saves an annotated image.

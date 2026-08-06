@@ -1,0 +1,30 @@
+seed: 42
+device: auto
+
+model:
+  input_size: 160
+  width_mult: 0.35
+  pretrained: false
+  score_threshold: 0.35
+  nms_iou_threshold: 0.45
+
+dataset:
+  root: dataset/aruco
+  train_manifest: train.txt
+  val_manifest: val.txt
+  test_manifest: test.txt
+  max_boxes: 16
+  num_workers: 0
+
+training:
+  epochs: 60
+  batch_size: 32
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  positive_weight: 8.0
+  box_loss_weight: 5.0
+  output_dir: artifacts/aruco_mbv2_035
+
+export:
+  output_dir: artifacts/aruco_mbv2_035/export
+  onnx_opset: 17
