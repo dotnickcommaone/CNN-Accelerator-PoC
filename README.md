@@ -6,10 +6,7 @@ hệ thống ước lượng khoảng cách và phát lệnh giảm tốc/dừng
 chuyển MobileNetV2-0.35 INT8 sang accelerator trên PYNQ-Z2.
 
 > **Trạng thái hiện tại:** PoC USB webcam trên laptop đã hoạt động. Model,
-> training, evaluation, ONNX/INT8 export và controller đã có. Accelerator FPGA
-> cho model ArUco mới **chưa được triển khai**. Tài sản cat/dog legacy đã được
-> loại khỏi working tree; khi cần chỉ xem lại trong Git history.
-
+> training, evaluation, ONNX/INT8 export và controller đã có.
 ## Kiến trúc
 
 ```text
