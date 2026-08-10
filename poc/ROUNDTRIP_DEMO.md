@@ -168,7 +168,7 @@ python analysis/export_thesis_tables.py `
 ```
 
 Các file `poc_summary.csv`, `state_counts.csv`, `stop_trials.csv` và
-`latency_fps_wide.csv` có thể được nhập trực tiếp vào Excel, Prism hoặc phần mềm
+`latency_fps_wide.csv` có thể được nhập trực tiếp vào Excel hoặc phần mềm
 thống kê. Các cột thời gian nhiệm vụ được tính từ timestamp thực. Không dùng chúng
 làm thời gian di chuyển robot khi chạy video file ở chế độ `--headless`, vì file được
 xử lý nhanh hơn thời gian thực. Chỉ dùng số liệu thời gian này cho lần chạy webcam

@@ -23,7 +23,7 @@ Tài liệu tổng quan:
 
 - [Documentation index](docs/README.md)
 - [System overview](docs/system_overview_aruco_robot.md)
-- [Current overall architecture for Prism](docs/diagrams/current_poc_overall_architecture.drawio)
+- [Current overall architecture](docs/diagrams/current_poc_overall_architecture.drawio)
 - [Simplified thesis diagrams](docs/diagrams/thesis_architecture_diagrams.drawio)
 - [Draw.io architecture](docs/diagrams/aruco_robot_system_architecture.drawio)
 - [Software design](docs/software_design.md)
@@ -31,7 +31,6 @@ Tài liệu tổng quan:
 - [User manual](docs/user_manual.md)
 - [Round-trip demo workflow](poc/ROUNDTRIP_DEMO.md)
 - [Experiment runner và logging](experiments/README.md)
-- [Dummy comparison data cho bản nháp](docs/dummy_backend_results.md)
 
 ## Vì sao kết hợp CNN và ArUco?
 
@@ -90,7 +89,7 @@ python poc/live_webcam_demo.py `
   --mode classical --mission roundtrip --start-id 0 --target-id 1 --headless
 ```
 
-Thu nhiều trial và gom toàn bộ raw log, video, bảng Prism và metadata vào một thư
+Thu nhiều trial và gom toàn bộ raw log, video, bảng tổng hợp và metadata vào một thư
 mục experiment:
 
 ```powershell
@@ -172,7 +171,7 @@ AP50/latency INT8 cho PoC, nhưng chưa bit-identical với requantization của
 CNN-Accelerator/
 ├── model/                  # Model, train, evaluate, INT8 export
 ├── poc/                    # USB webcam PoC và mission controller
-├── analysis/               # Export bảng và dummy-data generators
+├── analysis/               # Export bảng và phân tích số liệu
 ├── experiments/            # Runner nhiều trial và logging
 ├── dataset/aruco/          # Hướng dẫn dataset; ảnh/nhãn local không commit
 ├── docs/                   # Tài liệu project hiện tại

@@ -13,7 +13,7 @@ nguồn để tránh trình bày dữ liệu tổng hợp như phép đo trên h
 | **DERIVED** | Giá trị được tính lại từ artifact gốc, không phải một phép đo độc lập. |
 | **TBD** | Chưa có số liệu vì chưa triển khai FPGA hoặc robot vật lý. |
 
-Không có số liệu dummy nào được dùng trong các bảng kết quả của file này.
+Các bảng kết quả trong file này chỉ sử dụng artifact và log đã được truy vết.
 
 ## 2. Cấu hình mô hình và dataset
 
@@ -339,7 +339,7 @@ với quy tắc requantization, rounding và saturation chính xác của accele
 | FPGA/board power | **TBD** |
 | FPGA accuracy sau INT8 | **TBD** — đã có CPU INT8 PoC nhưng chưa có board |
 
-Không thay các ô TBD bằng dữ liệu dummy trong chương kết quả chính thức.
+Giữ nguyên các ô TBD cho đến khi có dữ liệu đo và artifact tương ứng.
 
 ## 10. Đoạn văn có thể đưa vào khóa luận
 

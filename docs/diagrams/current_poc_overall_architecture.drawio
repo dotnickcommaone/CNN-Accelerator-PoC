@@ -94,7 +94,7 @@
         <mxCell id="rawlog" value="Raw experiment log&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Per-frame CSV + metadata&lt;br&gt;latency, FPS, detection source&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF9000;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="1320" y="490" width="200" height="98" as="geometry"/>
         </mxCell>
-        <mxCell id="prism" value="PRISM-READY OUTPUTS&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Summary CSV / TSV&lt;br&gt;AP50, fallback, latency, FPS&lt;br&gt;robot success and stop error&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF9000;strokeWidth=2;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+        <mxCell id="results-output" value="THESIS-READY OUTPUTS&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Summary CSV / TSV&lt;br&gt;AP50, fallback, latency, FPS&lt;br&gt;robot success and stop error&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF9000;strokeWidth=2;fontStyle=1;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="1320" y="630" width="200" height="120" as="geometry"/>
         </mxCell>
 
@@ -132,7 +132,7 @@
         <mxCell id="runner" value="EXPERIMENT RUNNER&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Repeated trials&lt;br&gt;Environment metadata&lt;br&gt;Raw log aggregation&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF9000;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="1135" y="890" width="205" height="105" as="geometry"/>
         </mxCell>
-        <mxCell id="analysis" value="ANALYSIS / PRISM&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Summary tables and plots&lt;br&gt;Dummy data is labeled&lt;br&gt;Replace with measured values&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF9000;fontSize=12;" vertex="1" parent="1">
+        <mxCell id="analysis" value="ANALYSIS / REPORTING&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Summary tables and plots&lt;br&gt;Use measured data only&lt;br&gt;Keep raw-log provenance&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#BF9000;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="1410" y="890" width="205" height="105" as="geometry"/>
         </mxCell>
         <mxCell id="fpga-handoff" value="FPGA IMPLEMENTATION&lt;br&gt;&lt;font style=&quot;font-size:11px&quot;&gt;Integer-only reference&lt;br&gt;HLS / Vivado overlay&lt;br&gt;&lt;b&gt;Not implemented yet&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#F1EDF7;strokeColor=#8064A2;fontSize=12;" vertex="1" parent="1">
@@ -159,7 +159,7 @@
         <mxCell id="e-mission-overlay" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#BF9000;" edge="1" parent="1" source="mission" target="overlay"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="e-mission-log" value="state events" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#BF9000;fontSize=10;" edge="1" parent="1" source="mission" target="rawlog"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="e-filter-log" value="frame metrics" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#BF9000;fontSize=10;" edge="1" parent="1" source="filter" target="rawlog"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e-log-prism" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeWidth=2;strokeColor=#BF9000;" edge="1" parent="1" source="rawlog" target="prism"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-log-results" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeWidth=2;strokeColor=#BF9000;" edge="1" parent="1" source="rawlog" target="results-output"><mxGeometry relative="1" as="geometry"/></mxCell>
 
         <mxCell id="e-ps-dma" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;dashed=1;strokeColor=#8064A2;" edge="1" parent="1" source="ps" target="dma"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="e-dma-acc" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;dashed=1;strokeColor=#8064A2;" edge="1" parent="1" source="dma" target="accelerator"><mxGeometry relative="1" as="geometry"/></mxCell>
@@ -172,7 +172,7 @@
         <mxCell id="e-eval-quant" value="accepted checkpoint" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#BF9000;fontSize=10;" edge="1" parent="1" source="evaluation" target="quant"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="e-quant-fpga" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;dashed=1;strokeColor=#8064A2;" edge="1" parent="1" source="quant" target="fpga-handoff"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1095" y="1020"/><mxPoint x="1770" y="1020"/></Array></mxGeometry></mxCell>
         <mxCell id="e-run-analysis" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#BF9000;" edge="1" parent="1" source="runner" target="analysis"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e-analysis-prism" value="CSV / TSV" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#BF9000;fontSize=10;" edge="1" parent="1" source="analysis" target="prism"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1515" y="820"/><mxPoint x="1420" y="820"/></Array></mxGeometry></mxCell>
+        <mxCell id="e-analysis-results" value="CSV / TSV" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#BF9000;fontSize=10;" edge="1" parent="1" source="analysis" target="results-output"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1515" y="820"/><mxPoint x="1420" y="820"/></Array></mxGeometry></mxCell>
         <mxCell id="e-quant-runtime" value="best.pt / FP32 runtime" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#BF9000;fontSize=10;" edge="1" parent="1" source="train" target="cnn"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="420" y="815"/><mxPoint x="780" y="815"/></Array></mxGeometry></mxCell>
         <mxCell id="e-fpga-target" value="future deployment" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;dashed=1;strokeColor=#8064A2;fontSize=10;" edge="1" parent="1" source="fpga-handoff" target="accelerator"><mxGeometry relative="1" as="geometry"/></mxCell>
       </root>

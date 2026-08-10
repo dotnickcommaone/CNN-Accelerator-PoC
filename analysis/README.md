@@ -39,15 +39,3 @@ version môi trường, camera properties và SHA-256 checkpoint/input/calibrati
 
 Không chỉnh sửa raw CSV bằng tay. Nếu cần đổi warm-up hoặc loại outlier, chạy
 lại script và ghi rõ rule trong phương pháp nghiên cứu.
-
-## Sinh dữ liệu dummy cho bản nháp
-
-```powershell
-python analysis/generate_dummy_backend_results.py
-python analysis/generate_dummy_extended_results.py --robot-trials 30
-```
-
-Output nằm trong `artifacts/dummy_results/backend_comparison/` và luôn mang nhãn
-`DUMMY_SIMULATED` hoặc `PROJECTED_NOT_MEASURED`. Xem
-[quy tắc sử dụng dummy data](../docs/dummy_backend_results.md). Không dùng các số
-này như kết quả thực nghiệm cuối cùng.

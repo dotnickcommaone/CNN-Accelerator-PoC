@@ -90,7 +90,7 @@ artifacts/experiments/<timestamp>_<name>/
 │       ├── snapshots/
 │       └── figures/
 ├── analysis/
-│   ├── prism_trial_summary.csv    # một row/trial, nhập Prism thuận tiện
+│   ├── trial_summary.csv          # một row cho mỗi trial
 │   ├── latency_fps_wide.csv       # định dạng wide cho latency/FPS
 │   ├── poc_raw_long.csv
 │   ├── poc_summary.csv
@@ -141,5 +141,5 @@ python experiments/summarize_experiment.py `
   artifacts/experiments/<timestamp>_<name> --drop-warmup 5
 ```
 
-Script merge dữ liệu tự động và thủ công vào `analysis/prism_trial_summary.csv`,
+Script merge dữ liệu tự động và thủ công vào `analysis/trial_summary.csv`,
 đồng thời cập nhật `experiment_summary.json`.

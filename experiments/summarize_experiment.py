@@ -160,7 +160,7 @@ def main() -> None:
             }
         )
 
-    write_csv(analysis_dir / "prism_trial_summary.csv", merged_rows)
+    write_csv(analysis_dir / "trial_summary.csv", merged_rows)
     write_csv(analysis_dir / "data_quality.csv", quality_rows)
 
     completed = sum(row["automatic_status"] == "COMPLETE" for row in merged_rows)
@@ -215,7 +215,7 @@ def main() -> None:
     )
     print(
         f"SUMMARY: {completed}/{len(merged_rows)} completed; "
-        f"Prism table={analysis_dir / 'prism_trial_summary.csv'}"
+        f"Trial summary={analysis_dir / 'trial_summary.csv'}"
     )
 
 

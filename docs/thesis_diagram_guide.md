@@ -18,7 +18,7 @@ export riêng từ diagrams.net bằng `File -> Export as -> SVG/PNG`.
 - Màu xanh lá: thành phần xử lý đã có trong PoC.
 - Màu xanh dương: camera, dữ liệu hoặc thông tin quan sát.
 - Màu cam: điều khiển robot.
-- Màu vàng: đánh giá, logging và đầu ra Prism.
+- Màu vàng: đánh giá, logging và đầu ra phân tích.
 - Màu tím hoặc nét đứt: thành phần FPGA/robot vật lý chưa được triển khai.
 
 ## Thiết lập export đề xuất

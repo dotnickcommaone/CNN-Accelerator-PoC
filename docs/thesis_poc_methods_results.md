@@ -256,7 +256,7 @@ nhau. Một trial chỉ được tính thành công khi state đi qua `AT_TARGET
 Tối thiểu 10 trial cho mỗi điều kiện ánh sáng/backend. Báo tỷ lệ hoàn tất,
 thời gian đi tới target, thời gian quay về, sai số dừng ở hai đầu và failure mode.
 `first_target_frame`, `home_complete_frame` và `mission_completed` được xuất tự
-động; sai số vật lý phải đo độc lập. Trong Prism, nhập mỗi trial thành một row,
+động; sai số vật lý phải đo độc lập. Trong phần mềm thống kê, nhập mỗi trial thành một row,
 backend/điều kiện thành column; dùng scatter có median/IQR hoặc mean/SD và giữ raw
 points. Tỷ lệ thành công nên báo kèm tử số/mẫu số, không chỉ phần trăm.
 

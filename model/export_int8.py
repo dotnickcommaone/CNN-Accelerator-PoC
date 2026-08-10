@@ -103,14 +103,14 @@ def main() -> None:
     checkpoint = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
     model.load_state_dict(checkpoint["model"])
     model.eval()
-    dummy = torch.zeros(
+    example_input = torch.zeros(
         1, 3, config["model"]["input_size"], config["model"]["input_size"]
     )
     with torch.inference_mode():
-        reference = model(dummy)
+        reference = model(example_input)
     model = fold_batch_norms(model)
     with torch.inference_mode():
-        folded_output = model(dummy)
+        folded_output = model(example_input)
     fold_max_error = float((reference - folded_output).abs().max())
     if fold_max_error > 1e-4:
         raise RuntimeError(f"Conv-BN folding changed output by {fold_max_error}")
@@ -142,7 +142,7 @@ def main() -> None:
     try:
         torch.onnx.export(
             model,
-            dummy,
+            example_input,
             onnx_path,
             input_names=["image"],
             output_names=["grid_prediction"],
