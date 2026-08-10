@@ -10,7 +10,7 @@ nghĩa cách đo CPU/PoC/FPGA để kết quả sau này có thể so sánh côn
 1. Classical OpenCV ArUco trên CPU.
 2. CNN FP32 PyTorch trên CPU.
 3. Hybrid CPU: CNN ROI + OpenCV fallback.
-4. CNN INT8 integer reference.
+4. CNN INT8 CPU runtime PoC (PyTorch FX/oneDNN).
 5. CNN INT8 FPGA + ARM post-processing.
 
 Mọi backend dùng cùng frame order, resolution, test manifest và target ID.
@@ -119,12 +119,16 @@ toàn board). Vivado power estimate và đo ngoài board phải được ghi ri�
 
 | Variant | AP50 | Model size | Latency | Notes |
 |---|---:|---:|---:|---|
-| FP32 | TBD | TBD | TBD | Reference |
-| INT8 software | TBD | TBD | TBD | Bit-accurate reference |
+| FP32 | 1,000 synthetic | 1,742 MiB ONNX | 9,357 ms mean | CPU reference; phép đo một lượt |
+| INT8 CPU FX | 1,000 synthetic | 0,898 MiB TorchScript | 8,837 ms mean | 500 mẫu; không bit-identical với HLS |
+| INT8 HLS reference | TBD | TBD | TBD | Phải dùng đúng requantization phần cứng |
 | INT8 FPGA | TBD | TBD | TBD | Must match reference |
 | INT4 QAT | Optional | TBD | TBD | Chỉ làm sau INT8 |
 
-So sánh tensor layer-by-layer trước khi chỉ nhìn AP cuối.
+Hai latency CPU hiện được thu bằng số lượt khác nhau nên chỉ là baseline riêng, chưa
+được dùng để kết luận speedup FP32→INT8. Khi so sánh chính thức phải chạy cùng warm-up,
+repeats, thread count và test order. So sánh tensor layer-by-layer trước khi chỉ nhìn
+AP cuối.
 
 ## 9. Robot experiment
 

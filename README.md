@@ -26,6 +26,8 @@ Tài liệu tổng quan:
 
 - [Documentation index](docs/README.md)
 - [System overview](docs/system_overview_aruco_robot.md)
+- [Current overall architecture for Prism](docs/diagrams/current_poc_overall_architecture.drawio)
+- [Simplified thesis diagrams](docs/diagrams/thesis_architecture_diagrams.drawio)
 - [Draw.io architecture](docs/diagrams/aruco_robot_system_architecture.drawio)
 - [Software design](docs/software_design.md)
 - [Hardware design](docs/hardware_design.md)
@@ -155,6 +157,18 @@ Exporter thực hiện:
 Đây là handoff artifact, chưa phải integer-only reference. Trước HLS cần mô
 phỏng requantization, saturation và residual add bit-accurate.
 
+CPU INT8 runtime cho PoC có thể đánh giá riêng bằng:
+
+```powershell
+python model/evaluate_int8_runtime.py `
+  --checkpoint artifacts/aruco_mbv2_035/best.pt `
+  --calibration-samples 100 --warmup 20 --repeats 5 `
+  --threads 8 --save-runtime
+```
+
+Runtime này dùng quantized CPU kernels và tự audit float fallback. Nó cung cấp
+AP50/latency INT8 cho PoC, nhưng chưa bit-identical với requantization của HLS.
+
 ## Cấu trúc repository
 
 ```text
@@ -178,12 +192,13 @@ CNN-Accelerator/
 | Round-trip state machine hai marker | Hoàn thành ở PoC mô phỏng |
 | Synthetic/real capture tools | Hoàn thành |
 | Dataset audit/session split | Hoàn thành |
-| Camera intrinsic/solvePnP tools | Hoàn thành về code, chưa calibrate webcam cụ thể |
+| Camera intrinsic/solvePnP tools | Hoàn thành; đã có calibration 20 view cho webcam hiện tại |
 | FP32 training/evaluation | Hoàn thành về code |
 | Dataset camera thật đủ lớn | Chưa hoàn thành |
 | Checkpoint chính thức | Chưa hoàn thành |
 | Calibrated INT8 export | Hoàn thành về tool |
-| Integer-only reference | Chưa hoàn thành |
+| CPU INT8 runtime và AP50/latency | Hoàn thành cho PoC synthetic |
+| HLS bit-accurate integer reference | Chưa hoàn thành |
 | MobileNetV2 HLS accelerator | Chưa hoàn thành |
 | Vivado/PYNQ overlay cho model mới | Chưa hoàn thành |
 | Robot motor integration | Chưa hoàn thành |
@@ -201,7 +216,7 @@ CNN-Accelerator/
 
 1. Thu thập và review dataset camera thật.
 2. Train checkpoint chính thức và đánh giá classical/CNN/hybrid.
-3. Xây integer-only reference và kiểm tra chênh lệch FP32–INT8.
+3. Xây HLS bit-accurate reference và đối chiếu với CPU INT8 runtime hiện tại.
 4. Thiết kế depthwise/pointwise HLS accelerator.
 5. Tạo Vivado overlay mới và thay backend PyTorch bằng PYNQ backend.
 6. Tích hợp robot, đo FPS, power, tài nguyên và sai số dừng.

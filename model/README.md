@@ -56,14 +56,51 @@ ranges. This is an HLS handoff artifact, not yet a bit-accurate quantized model.
 Conv/BatchNorm pairs are folded before ONNX and INT8 export; the exporter aborts
 if folding changes the FP32 output by more than `1e-4`.
 
+## CPU INT8 runtime PoC
+
+Evaluate a real static-INT8 CPU runtime and export AP50 plus latency statistics:
+
+```powershell
+python model/evaluate_int8_runtime.py `
+  --config model/configs/mobilenetv2_035.yaml `
+  --checkpoint artifacts/aruco_mbv2_035/best.pt `
+  --split test `
+  --calibration-samples 100 `
+  --warmup 20 `
+  --repeats 5 `
+  --threads 8 `
+  --save-runtime `
+  --output-dir artifacts/evaluation/int8_runtime
+```
+
+The command applies PyTorch FX post-training static quantization and refuses to
+report metrics if a float `Conv2d`, `Linear`, or residual add remains in the CNN
+core. On the current `onednn` backend, activations are QUINT8, weights are QINT8,
+and convolution accumulation is INT32. The graph has one input quantize node and
+one output dequantize node; bounding-box decode and NMS remain floating point.
+
+Generated files:
+
+- `metrics.json`: AP50, Precision, Recall, mean/median/P95 latency and provenance;
+- `predictions.csv`: one row per test image;
+- `pr_curve.csv`: raw Precision–Recall points;
+- `latency_samples.csv`: all timed inference samples;
+- `quantization_audit.json`: quantized-layer and fallback audit;
+- `int8_runtime.ts`: optional fixed-input TorchScript runtime.
+
+This runtime is the CPU INT8 PoC baseline. Its latency is not FPGA latency, and
+its observer scales are not guaranteed to be bit-identical to the separate NPZ
+HLS handoff. A bit-accurate HLS reference is still required before synthesis.
+
 ## Current baseline limits
 
 - The supplied configuration trains from scratch because torchvision does not
   publish pretrained MobileNetV2-0.35 weights.
 - The `5x5` detection grid is intended for a small number of room markers, not
   dense general-purpose object detection.
-- INT8 activation scales are calibrated, but an integer-only reference forward
-  pass and FP32-vs-INT8 accuracy comparison remain required before HLS.
+- A CPU static-INT8 runtime is available for PoC accuracy and latency. A
+  bit-accurate reference using the exact HLS requantization rules remains required
+  before hardware synthesis.
 - Synthetic results are sanity checks only and must not be reported as thesis
   accuracy.
 

@@ -117,8 +117,15 @@ ArUco, controller, rendering và logging.
 6. tạo INT32 bias;
 7. export ONNX opset 17 và NPZ/JSON manifest.
 
-Đây chưa phải integer-only inference. Cần bổ sung reference thực hiện multiplier,
-shift, rounding, saturation và residual add đúng bit.
+NPZ/manifest này chưa tự tạo thành runtime. CPU INT8 PoC được triển khai riêng trong
+`model/evaluate_int8_runtime.py` bằng PyTorch FX static quantization và quantized
+oneDNN kernels. Evaluator từ chối xuất số liệu nếu graph còn float Conv2d, Linear
+hoặc residual add trong CNN core; output được dequantize trước decode và NMS.
+
+CPU runtime cung cấp AP50 và model latency INT8 cho PoC, nhưng scale do observer của
+PyTorch sinh ra không được xem là bit-identical với HLS handoff. Trước synthesis vẫn
+cần reference thực hiện multiplier, shift, rounding, saturation và residual add theo
+đúng quy tắc phần cứng.
 
 ## 7. Robot controller
 

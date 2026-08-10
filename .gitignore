@@ -19,9 +19,7 @@ dist/
 # Generated/private datasets and split manifests
 dataset/aruco/images/
 dataset/aruco/labels/
-dataset/aruco/train.txt
-dataset/aruco/val.txt
-dataset/aruco/test.txt
+dataset/aruco/*.txt
 
 # Generated model/hardware artifacts
 *.pt

@@ -286,10 +286,12 @@ FP32 checkpoint
 Conv–BatchNorm folding được kiểm tra sai số trước và sau biến đổi. Export sẽ
 dừng nếu sai số vượt ngưỡng cho phép.
 
-Artifact INT8 hiện là đầu vào cho bước thiết kế phần cứng, chưa phải bằng chứng
-về độ chính xác integer-only. Trước khi tổng hợp HLS cần bổ sung:
+Project hiện có thêm CPU INT8 runtime bằng PyTorch FX/oneDNN để đo AP50 và latency
+cho PoC. Runtime audit toàn bộ convolution và residual add, nhưng dùng scale do
+observer PyTorch sinh ra nên chưa phải reference bit-identical với HLS handoff.
+Trước khi tổng hợp HLS vẫn cần bổ sung:
 
-- integer reference forward pass;
+- integer reference forward pass dùng đúng scale/multiplier phần cứng;
 - requantization và saturation tại từng layer;
 - xử lý residual add cùng scale;
 - so sánh tensor theo layer với FP32;

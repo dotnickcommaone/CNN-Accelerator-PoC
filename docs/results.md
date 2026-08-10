@@ -13,12 +13,14 @@ văn ArUco.
 | Kiểm tra | Kết quả |
 |---|---|
 | Model forward contract | `[B,3,160,160] → [B,5,5,5]` |
-| Model parameters | khoảng 452 nghìn |
+| Model parameters | 452.761 |
 | Loss/backprop/optimizer step | Pass |
 | Sanity overfit nhỏ | Có thể học box, TP=3/FP=0/FN=0 trên 3 positive training samples |
-| Conv–BN folding | Max error đã đo khoảng `1.19e-6` trong smoke run |
+| Conv–BN folding | Max error `1.431e-6` trong export hiện tại |
 | ONNX checker | Pass, opset 17 trong smoke export |
 | INT8 handoff | Weight/scales/bias/calibration manifest được tạo |
+| CPU INT8 runtime | 54/54 Conv2d và 10/10 residual add được quantize; không có float core fallback |
+| CPU INT8 synthetic test | AP50=1,000; mean/median/P95 latency=8,837/8,676/11,174 ms |
 | Model unit tests | Pass tại lần kiểm tra gần nhất |
 
 Sanity overfit chỉ xác nhận code/loss học được; không phản ánh generalization.
@@ -44,7 +46,8 @@ functional test, không phải kết quả robot thật.
 |---|---|
 | Accuracy trên camera test set độc lập | Chưa có |
 | AP50 checkpoint chính thức | Chưa có |
-| FP32–INT8 accuracy delta | Chưa có |
+| FP32–INT8 accuracy delta trên synthetic test | 0,000; không đại diện camera thật |
+| FP32–INT8 accuracy delta trên camera test | Chưa có |
 | USB webcam sustained FPS đã chuẩn hóa | Chưa có report chính thức |
 | FPGA inference latency/FPS | Chưa có accelerator mới |
 | FPGA LUT/FF/BRAM/DSP/Fmax | Chưa có report mới |
@@ -109,9 +112,12 @@ chỉ còn trong Git history và không được so sánh trực tiếp với mo
 
 - Dataset: `model/scripts/audit_aruco_dataset.py`;
 - Model summary/raw predictions/PR: `model/evaluate.py --output-json ...`;
+- CPU INT8 AP50/latency/audit: `model/evaluate_int8_runtime.py`;
 - PoC latency/state: CSV từ `poc/live_webcam_demo.py`;
 - Tổng hợp nhiều backend: `analysis/export_thesis_tables.py`;
 - Camera calibration: NPZ/JSON từ `poc/calibrate_camera.py`.
 
 Ví dụ engineering-only hiện có được ghi tại
 [poc_smoke_report_2026-08-04.md](poc_smoke_report_2026-08-04.md).
+Snapshot kết quả mới nhất được tổng hợp tại
+[thesis_latest_measurements_2026-08-10.md](thesis_latest_measurements_2026-08-10.md).
