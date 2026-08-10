@@ -201,13 +201,6 @@ CNN-Accelerator/
 | Robot motor integration | Chưa hoàn thành |
 | FPGA FPS/power/resource measurements | Chưa hoàn thành |
 
-## Quy tắc báo cáo kết quả
-
-- Không dùng số liệu cat/dog legacy làm kết quả ArUco.
-- Không gọi synthetic smoke test là accuracy thực nghiệm.
-- Không báo DSP/BRAM/power nếu chưa có report hoặc phép đo tương ứng.
-- CPU, classical, hybrid và FPGA phải chạy cùng test set và cùng điều kiện.
-- Phân biệt model-only latency với end-to-end latency.
 
 ## Bước tiếp theo
 
