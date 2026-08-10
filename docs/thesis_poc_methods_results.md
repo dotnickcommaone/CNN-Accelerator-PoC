@@ -29,11 +29,6 @@ phát triển, không phải kết quả đã đạt.
 > điều khiển trạng thái SEARCHING–APPROACHING–SLOWING–STOPPED. Điều kiện dừng
 > phải tồn tại liên tiếp trong nhiều frame nhằm hạn chế nhiễu và dừng giả.
 
-Sơ đồ dùng trong khóa luận:
-
-- [Draw.io, trang 01 PoC](diagrams/aruco_robot_system_architecture.drawio);
-- [Draw.io, trang 02 FPGA target](diagrams/aruco_robot_system_architecture.drawio).
-
 ## 3. Thiết lập thực nghiệm cần ghi
 
 ### 3.1 Phần cứng/phần mềm

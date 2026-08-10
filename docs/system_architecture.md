@@ -1,10 +1,8 @@
 # Kiến trúc hệ thống ArUco CNN Accelerator
 
-Tài liệu này mô tả ranh giới và dataflow của hệ thống. Bản mô tả đầy đủ hơn và
-sơ đồ Draw.io nằm tại:
+Tài liệu này mô tả ranh giới và dataflow của hệ thống. Bản mô tả tổng quan nằm tại:
 
 - [System overview](system_overview_aruco_robot.md)
-- [Draw.io editable diagram](diagrams/aruco_robot_system_architecture.drawio)
 
 ## 1. Hai cấu hình hệ thống
 

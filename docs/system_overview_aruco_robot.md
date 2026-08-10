@@ -1,8 +1,5 @@
 # Tổng quan hệ thống nhận diện ArUco cho robot giao hàng indoor
 
-> Sơ đồ kiến trúc có thể chỉnh sửa bằng Draw.io:
-> [`diagrams/aruco_robot_system_architecture.drawio`](diagrams/aruco_robot_system_architecture.drawio)
-
 ## 1. Giới thiệu
 
 Hệ thống được xây dựng nhằm hỗ trợ robot giao hàng trong nhà nhận biết marker

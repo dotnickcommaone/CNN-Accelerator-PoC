@@ -5,10 +5,6 @@
 | Tài liệu | Nội dung |
 |---|---|
 | [System overview](system_overview_aruco_robot.md) | Tổng quan PoC và kiến trúc FPGA đích |
-| [Current overall architecture](diagrams/current_poc_overall_architecture.drawio) | Sơ đồ một trang về PoC hiện tại, đo đạc và FPGA dự kiến |
-| [Thesis architecture diagrams](diagrams/thesis_architecture_diagrams.drawio) | Năm sơ đồ đơn giản, tách theo từng phần khóa luận |
-| [Thesis diagram guide](thesis_diagram_guide.md) | Vị trí chèn, caption và thiết lập export |
-| [Draw.io architecture](diagrams/aruco_robot_system_architecture.drawio) | Hai sơ đồ chỉnh sửa được |
 | [System architecture](system_architecture.md) | Component, interface và runtime dataflow |
 | [Software design](software_design.md) | Model, detector backends, controller, logging |
 | [Hardware design](hardware_design.md) | Accelerator MobileNetV2 INT8 dự kiến |

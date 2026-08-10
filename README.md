@@ -23,9 +23,6 @@ Tài liệu tổng quan:
 
 - [Documentation index](docs/README.md)
 - [System overview](docs/system_overview_aruco_robot.md)
-- [Current overall architecture](docs/diagrams/current_poc_overall_architecture.drawio)
-- [Simplified thesis diagrams](docs/diagrams/thesis_architecture_diagrams.drawio)
-- [Draw.io architecture](docs/diagrams/aruco_robot_system_architecture.drawio)
 - [Software design](docs/software_design.md)
 - [Hardware design](docs/hardware_design.md)
 - [User manual](docs/user_manual.md)
